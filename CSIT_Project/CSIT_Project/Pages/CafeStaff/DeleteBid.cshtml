@@ -1,0 +1,45 @@
+﻿@page
+@using System.Data.SqlClient;
+@using Pages.Entities;
+@using CSIT_Project.Pages;
+@using Pages.NewControllers.CafeStaff;
+@{
+    int success = deleteStaffBid();
+}
+
+@functions {
+    public int deleteStaffBid()
+    {
+        String errorMessage;
+
+        try
+        {
+
+            String id = Request.Query["id"];
+            StaffBid currentBid = new StaffBid();
+            currentBid.getStaffBid(id);
+
+            if (!currentBid.status.Equals("approved"))
+            {
+                DeleteBidController deleteBid = new DeleteBidController();
+                int success = deleteBid.deleteBid(id);
+                if (success == 1)
+                {
+                    // Set a flag in TempData to indicate a successful operation
+                    TempData["DeleteMessage"] = "Staff Bid Deleted";
+                }
+                Response.Redirect("/CafeStaff/ViewBid");
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            return 0;
+        }
+        Response.Redirect("/CafeStaff/ViewBid");
+
+        return 1;
+    }
+}
+
+

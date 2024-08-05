@@ -1,0 +1,99 @@
+﻿@page
+@model CSIT_Project.Pages.UserAccounts.CreateModel
+@{
+}
+<script>
+    function checkStaffType() {
+        let element = document.getElementById('stafftype');
+        let stafftype = element.value;
+        if (stafftype == "3") {
+            document.getElementById('staffrole').hidden = false;
+        }
+        else {
+            document.getElementById('staffrole').hidden = true;
+        }
+    }
+</script>
+
+<h2>New User</h2>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="POST">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="username" value="@Model.username">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="password" value="@Model.password">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="name" value="@Model.name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="email" value="@Model.email">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Phone</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="phone" value="@Model.phone">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Address</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="address" value="@Model.address">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Staff Type</label>
+        <select name="stafftype" id="stafftype" class="col-sm-6" value="@Model.stafftypeId" onchange="checkStaffType()">
+            <option class="form-control" name="System Admin" value="4">System Admin</option>
+            <option class="form-control" name="Cafe Owner" value="1">Cafe Owner</option>
+            <option class="form-control" name="Cafe Manager" value="2">Cafe Manager</option>
+            <option class="form-control" name="Cafe Staff" value="3">Cafe Staff</option>
+        </select>
+        <p id="testing"></p>
+    </div>
+    <div id="staffrole"class="row mb-3" hidden>
+        <label class="col-sm-3 col-form-label">Cafe Staff Role</label>
+        <select name="role" id="role" class="col-sm-6" value="@Model.role">
+            <option class="form-control" name="chef" value="chef">Chef</option>
+            <option class="form-control" name="cashier" value="cashier">Cashier</option>
+            <option class="form-control" name="waiter" value="waiter">Waiter</option>
+        </select> <br />
+    </div>
+
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@Model.successMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/SystemAdmin/UserAccounts/Index" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

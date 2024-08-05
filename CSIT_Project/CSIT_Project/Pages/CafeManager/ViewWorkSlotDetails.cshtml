@@ -1,0 +1,71 @@
+﻿@page
+@model CSIT_Project.Pages.CafeManager.Index1Model
+@{
+}
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-page="/CafeManager/Index">Cafe Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/Index">Work Slots</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/ViewStaffs">Staffs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/ViewStaffBid">Pending Bids</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <a class="btn btn-primary" asp-area="" asp-page="/Logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Work Role</th>
+            <th>Work Day</th>
+            <th>Week</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Staff Allocated</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.WorkSlotDetails != null)
+        {
+            <tr>
+                <td>@Model.WorkSlotDetails.id</td>
+                <td>@Model.WorkSlotDetails.workRole</td>
+                <td>@Model.WorkSlotDetails.workDay</td>
+                <td>@Model.WorkSlotDetails.workWeek</td>
+                <td>@Model.WorkSlotDetails.startTime</td>
+                <td>@Model.WorkSlotDetails.endTime</td>
+                @if(Model.WorkSlotDetails.staffAllocated == 0)
+                {
+                <td>None</td>
+                }
+                @if (Model.WorkSlotDetails.staffAllocated != 0)
+                {
+                <td>Staff ID: @Model.WorkSlotDetails.staffAllocated</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center mt-3">
+    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+</div>
+

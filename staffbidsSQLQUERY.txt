@@ -1,0 +1,15 @@
+drop table staffbids
+
+CREATE TABLE staffbids (
+id INT NOT NULL PRIMARY KEY IDENTITY,
+workslotId INT NOT NULL,
+useraccountId INT NOT NULL,
+status VARCHAR(20) NOT NULL DEFAULT 'processing'
+CONSTRAINT FK_workslotId FOREIGN KEY (workslotId) REFERENCES workslots(id),
+CONSTRAINT FK_useraccountId FOREIGN KEY (useraccountId) REFERENCES useraccounts(id)
+);
+
+INSERT INTO staffbids (workslotId, useraccountId)
+VALUES ('1', '5'),
+       ('2','6'),
+       ('3','5');

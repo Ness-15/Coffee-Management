@@ -1,0 +1,96 @@
+﻿@page
+@model CSIT_Project.Pages.CafeManager.ViewStaffBidModel
+@{
+}
+
+<script>
+    function approveBid(workslotId, bidId) {
+        var url = `/CafeManager/BidApproval?workslotId=${workslotId}&bidId=${bidId}`;
+        window.location.href = url;
+    }
+    function rejectBid(bidId) {
+        var url = `/CafeManager/BidRejection?bidId=${bidId}`;
+        window.location.href = url;
+    }
+</script>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-page="/CafeManager/Index">Cafe Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/Index">Work Slots</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/ViewStaffs">Staffs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CafeManager/ViewStaffBid">Pending Bids</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="mb-3">
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Bid ID</th>
+            <th>WorkSlot ID</th>
+            <th>Work Role</th>
+            <th>Staff Name</th>
+            <th>Staff Phone</th>
+            <th>Staff Email</th>
+            <th>Bid Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.listProcessingStaffBids)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.workslotId</td>
+                <td>@item.role</td>
+                <td>@item.userName</td>
+                <td>@item.userPhone</td>
+                <td>@item.userEmail</td>
+                <td>@item.status</td>
+                <td>
+                    <button class="btn btn-success" onclick="approveBid('@item.workslotId', '@item.id')">
+                        Approve
+                    </button>
+                    <button class="btn btn-danger" onclick="rejectBid('@item.id')">
+                        Reject
+                    </button>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model.listCompletedStaffBids)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.workslotId</td>
+                <td>@item.role</td>
+                <td>@item.userName</td>
+                <td>@item.userPhone</td>
+                <td>@item.userEmail</td>
+                <td>@item.status</td>
+                <td>
+                    <button class="btn btn-success" disabled>Approve</button>
+                    <button class="btn btn-danger" disabled>Reject</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

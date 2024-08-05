@@ -1,0 +1,38 @@
+﻿@page
+@using System.Data.SqlClient;
+@using Pages.Entities;
+@using CSIT_Project.Pages;
+@using CSIT_Project.Pages.NewControllers.CafeStaff
+@{
+    String workslotId = Request.Query["id"];
+    String useraccountId = HttpContext.Session.GetString("id");
+    int success = createStaffBid(workslotId, useraccountId);
+}
+
+@functions {
+    public int createStaffBid(string workslotId, string useraccountId)
+    {
+        String errorMessage;
+
+        try
+        {
+            CreateStaffBidController createBid = new CreateStaffBidController();
+            int success = createBid.createStaffBid(workslotId, useraccountId);
+            if (success == 1)
+            {
+                // Set a flag in TempData to indicate a successful operation
+                TempData["CreateMessage"] = "Bid Successful.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            return 0;
+        }
+
+        Response.Redirect("/CafeStaff/Index");
+        return 1;
+    }
+}
+
+

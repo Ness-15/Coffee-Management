@@ -1,0 +1,31 @@
+﻿@page
+@using System.Data.SqlClient;
+@using CSIT_Project.Pages.Entities;
+@using CSIT_Project.Pages.NewControllers.SystemAdmin;
+@{
+    int success = DeleteUserAccount();
+}
+
+@functions {
+    public int DeleteUserAccount()
+    {
+        string errorMessage;
+        try
+        {
+            String id = Request.Query["id"];
+            int success = new DeleteUserAccountController().deleteUserAccount(id);
+            if (success == 1)
+            {
+                // Set a flag in TempData to indicate a successful operation
+                TempData["DeleteMessage"] = "User Deleted";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            return 0;
+        }
+        Response.Redirect("/SystemAdmin/UserAccounts/Index");
+        return 1;
+    }
+}

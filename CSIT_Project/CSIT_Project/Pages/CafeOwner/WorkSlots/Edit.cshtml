@@ -1,0 +1,75 @@
+﻿@page
+@model CSIT_Project.Pages.WorkSlots.EditModel
+
+<h2>Edit WorkSlot</h2>
+
+@if (!string.IsNullOrEmpty(Model.errorMessage))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.workSlot.id" />
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Work Role</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="workRole" value="@Model.workSlot.workRole">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Work Day</label>
+        <div class="col-sm-6">
+            <select name="workDay">
+                @{
+                    var selectedWorkDay = Model.workSlot.workDay;
+                }
+                <option value="Monday" selected="@("Monday" == selectedWorkDay)">Monday</option>
+                <option value="Tuesday" selected="@("Tuesday" == selectedWorkDay)">Tuesday</option>
+                <option value="Wednesday" selected="@("Wednesday" == selectedWorkDay)">Wednesday</option>
+                <option value="Thursday" selected="@("Thursday" == selectedWorkDay)">Thursday</option>
+                <option value="Friday" selected="@("Friday" == selectedWorkDay)">Friday</option>
+                <option value="Saturday" selected="@("Saturday" == selectedWorkDay)">Saturday</option>
+                <option value="Sunday" selected="@("Sunday" == selectedWorkDay)">Sunday</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Work Week</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="workWeek" value="@Model.workSlot.workWeek">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Start Time</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="startTime" value="@Model.workSlot.startTime">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">End Time</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="endTime" value="@Model.workSlot.endTime">
+        </div>
+    </div>
+
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@Model.successMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/CafeOwner/WorkSlots/Index" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

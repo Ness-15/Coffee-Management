@@ -1,0 +1,42 @@
+DROP TABLE workslots;
+
+create table workslots (
+id int not null primary key identity,
+workRole varchar(100) not null,
+workDay varchar(100) not null,
+workWeek int not null,
+startTime varchar(100) not null,
+endTime varchar(100) not null,
+staffAllocated int default null
+CONSTRAINT FK_staffAllocated FOREIGN KEY (staffAllocated) REFERENCES useraccounts(id)
+);
+
+INSERT INTO workslots (workRole, workDay, workWeek, startTime, endTime)
+VALUES
+    ('Chef', 'Monday', '1', '08:00:00', '16:00:00'),
+    ('Waiter', 'Monday', '2', '09:00:00', '17:00:00'),
+    ('Cashier', 'Monday', '3', '10:30:00', '18:30:00'),
+    ('Waiter', 'Monday', '4', '11:15:00', '19:15:00'),
+    ('Chef', 'Monday', '1', '12:30:00', '20:30:00'),
+    ('Chef', 'Tuesday', '1', '08:00:00', '16:00:00'),
+    ('Waiter', 'Tuesday', '2', '09:00:00', '17:00:00'),
+    ('Cashier', 'Tuesday', '3', '10:30:00', '18:30:00'),
+    ('Waiter', 'Tuesday', '4', '11:15:00', '19:15:00'),
+    ('Chef', 'Tuesday', '2', '12:30:00', '20:30:00'),
+    ('Chef', 'Wednesday', '1', '08:00:00', '16:00:00'),
+    ('Waiter', 'Wednesday', '2', '09:00:00', '17:00:00'),
+    ('Cashier', 'Wednesday', '3', '10:30:00', '18:30:00'),
+    ('Waiter', 'Wednesday', '4', '11:15:00', '19:15:00'),
+    ('Chef', 'Wednesday', '3', '12:30:00', '20:30:00'),
+    ('Chef', 'Thursday', '1', '08:00:00', '16:00:00'),
+    ('Waiter', 'Thursday', '2', '09:00:00', '17:00:00'),
+    ('Cashier', 'Thursday', '3', '10:30:00', '18:30:00'),
+    ('Waiter', 'Thursday', '4', '11:15:00', '19:15:00'),
+    ('Chef', 'Thursday', '4', '12:30:00', '20:30:00'),
+    ('Chef', 'Friday', '1', '08:00:00', '16:00:00'),
+    ('Waiter', 'Friday', '2', '09:00:00', '17:00:00'),
+    ('Cashier', 'Friday', '3', '10:30:00', '18:30:00'),
+    ('Waiter', 'Friday', '4', '11:15:00', '19:15:00'),
+    ('Chef', 'Friday', '4', '12:30:00', '20:30:00');
+
+

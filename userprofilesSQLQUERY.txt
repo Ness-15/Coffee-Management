@@ -1,0 +1,20 @@
+DROP TABLE UserProfiles;
+
+CREATE TABLE UserProfiles (
+                        ID INT PRIMARY KEY IDENTITY,
+                        Profile VARCHAR(50),
+                        Description VARCHAR(255),
+			Status VARCHAR(255) NOT NULL DEFAULT 'Active'
+                    );
+
+INSERT INTO UserProfiles (Profile, Description)
+VALUES ('Cafe Owner', 'Role for Cafe Owners'),
+('Cafe Manager', 'Role for Cafe Managers'),
+('Cafe Staff', 'Role for Cafe Staff'),
+('System Admin', 'Role for System Admin');
+
+
+
+	
+
+   

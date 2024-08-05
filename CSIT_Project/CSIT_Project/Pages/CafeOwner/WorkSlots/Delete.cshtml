@@ -1,0 +1,36 @@
+﻿@page
+@using System.Data.SqlClient;
+@using CSIT_Project.Pages.Entities;
+@using CSIT_Project.Pages.NewControllers.CafeOwner;
+@{
+    int success = DeleteWorkSlot();
+}
+
+@functions {
+
+    public int DeleteWorkSlot()
+    {
+        string errorMessage;
+        try
+        {
+            String id = Request.Query["id"];
+            DeleteWorkSlotController deleteWorkSlot = new DeleteWorkSlotController();
+            int success = deleteWorkSlot.deleteWorkSlot(id);
+            if (success == 1)
+            {
+                // Set a flag in TempData to indicate a successful operation
+                TempData["DeleteMessage"] = "Work Slot Deleted";
+            }
+            Response.Redirect("/CafeOwner/WorkSlots/Index");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            return 0;
+        }
+        Response.Redirect("/CafeOwner/WorkSlots/Index");
+        return 1;
+    }
+}
+
+}

@@ -1,0 +1,25 @@
+DROP TABLE useraccounts;
+
+CREATE TABLE useraccounts (
+    id INT NOT NULL PRIMARY KEY IDENTITY,
+    username VARCHAR (100) NOT NULL,
+    password VARCHAR (100) NOT NULL,
+    name VARCHAR (100) NOT NULL,
+    email VARCHAR (150) NOT NULL UNIQUE,
+    phone VARCHAR(20) NULL,
+    address VARCHAR(100) NULL,
+    stafftype INT NOT NULL,
+    CONSTRAINT FK_stafftype FOREIGN KEY (stafftype) REFERENCES UserProfiles(id),
+    status BIT NOT NULL DEFAULT 1,
+    role VARCHAR(50) DEFAULT NULL
+);
+
+INSERT INTO useraccounts (username, password, name, email, phone, address, stafftype, role)
+VALUES
+('billgates', '1234', 'Bill Gates', 'bill.gates@microsoft.com', '+123456789', 'New York, USA', '4', NULL),
+('elonmusk', '1234', 'Elon Musk', 'elon.musk@spacex.com', '+111222333', 'Florida, USA', '1', NULL),
+('willsmith', '1234', 'Will Smith', 'will.smith@gmail.com', '+111333555', 'California, USA', '2', NULL),
+('bobmarley', '1234', 'Bob Marley', 'bob@gmail.com', '+111555999', 'Texas, USA', '2', NULL),
+('cristianoronaldo', '1234', 'Cristiano Ronaldo', 'cristiano.ronaldo@gmail.com', '+32447788993', 'Manchester, England', '3', 'chef'),
+('borisjohnson', '1234', 'Boris Johnson',  'boris.johnson@gmail.com', '+4499778855', 'London, England', '3', 'waiter'),
+('lionelmessi', '1234', 'Lionel Messi',  'lionel.messi@gmail.com', '+8866442200', 'Argentina', '3', 'cashier')

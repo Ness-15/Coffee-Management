@@ -1,0 +1,108 @@
+﻿@page
+@model CSIT_Project.Pages.UserAccounts.EditModel
+@{
+}
+<script>
+    function checkStaffType() {
+        let element = document.getElementById('stafftype');
+        let stafftype = element.value;
+        if (stafftype == "3") {
+            document.getElementById('staffrole').hidden = false;
+        }
+        else {
+            document.getElementById('staffrole').hidden = true;
+        }
+    }
+</script>
+
+<h2>Edit User</h2>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="POST">
+    <input type="hidden" name="id" value="@Model.userInfo.id" />
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="username" value="@Model.userInfo.username">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="password" value="@Model.userInfo.password">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="name" value="@Model.userInfo.name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="email" value="@Model.userInfo.email">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Phone</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="phone" value="@Model.userInfo.phone">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Address</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="address" value="@Model.userInfo.address">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Staff Type</label>
+        <select name="stafftype" id="stafftype" class="col-sm-6" onchange="checkStaffType()">
+            @{
+                var stafftypeId = Model.userInfo.stafftypeId;
+            }
+
+            <option value="4" selected="@(4 == stafftypeId)">System Admin</option>
+            <option value="1" selected="@(1 == stafftypeId)">Cafe Owner</option>
+            <option value="2" selected="@(2 == stafftypeId)">Cafe Manager</option>
+            <option value="3" selected="@(3 == stafftypeId)">Cafe Staff</option>
+        </select>
+    </div>
+
+    <div id="staffrole" class="row mb-3" @(string.IsNullOrWhiteSpace(Model.userInfo.role) ? "hidden" : "")>
+        <label class="col-sm-3 col-form-label">Cafe Staff Role</label>
+        <select name="role" id="role" class="col-sm-6">
+            @{
+                var userRole = Model.userInfo.role;
+            }
+            <option value="chef" selected="@("chef" == userRole)">Chef</option>
+            <option value="cashier" selected="@("cashier" == userRole)">Cashier</option>
+            <option value="waiter" selected="@("waiter" == userRole)">Waiter</option>
+        </select> <br />
+    </div>
+
+
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@Model.successMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/SystemAdmin/UserAccounts/Index" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

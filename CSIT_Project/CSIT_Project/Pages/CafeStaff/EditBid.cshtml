@@ -1,0 +1,55 @@
+﻿@page
+@model CSIT_Project.Pages.CafeStaff.EditBidModel
+@{
+}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Please choose a new workslot</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <th style="width: 50px;">Week</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+        </tr>
+        @for (int week = 1; week <= Model.maxWeeks; week++)
+        {
+            <tr>
+                <td>@week</td>
+                @for (int day = 1; day <= 7; day++)
+                {
+                    <td class="work-cell" data-week="@week" data-day="@day">
+                        @foreach (var workslot in Model.listWorkSlots)
+                        {
+                            if (workslot.workWeek == week.ToString() && workslot.workDay == Model.GetDayName(day))
+                            {
+                                if (workslot.workRole.ToLower().Equals(Model.currentUser.role) && workslot.staffAllocated == 0)
+                                {
+                                    <form method="POST">
+                                         <button class="translucent-button" style="font-size: 10px;" id="workslotId" name="workslotId" value="@workslot.id">
+                                            @($"{workslot.workRole} - {workslot.startTime}")
+                                        </button> 
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="translucent-button" style="font-size: 10px;" disabled>
+                                        @($"{workslot.workRole} - {workslot.startTime}")
+                                    </button>
+                                }
+
+                            }
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
